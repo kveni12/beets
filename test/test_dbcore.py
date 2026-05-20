@@ -625,9 +625,7 @@ class QueryParseTest(unittest.TestCase):
 
 class QueryFromStringsTest(unittest.TestCase):
     def qfs(self, strings):
-        return dbcore.queryparse.query_from_strings(
-            query.AndQuery, ModelFixture1, strings
-        )
+        return ModelFixture1.parse_query(strings).query
 
     def test_zero_parts(self):
         q = self.qfs([])
@@ -655,7 +653,7 @@ class QueryFromStringsTest(unittest.TestCase):
 
 class SortFromStringsTest(unittest.TestCase):
     def sfs(self, strings):
-        return dbcore.queryparse.sort_from_strings(ModelFixture1, strings)
+        return ModelFixture1.parse_query(strings).sort
 
     def test_zero_parts(self):
         s = self.sfs([])
@@ -688,7 +686,7 @@ class SortFromStringsTest(unittest.TestCase):
 
 class ParseSortedQueryTest(unittest.TestCase):
     def psq(self, parts):
-        return dbcore.parse_sorted_query(ModelFixture1, parts.split())
+        return ModelFixture1.parse_query(parts.split())
 
     def test_and_query(self):
         q, s = self.psq("foo bar")
@@ -700,13 +698,13 @@ class ParseSortedQueryTest(unittest.TestCase):
         q, s = self.psq("foo , bar")
         assert isinstance(q, query.OrQuery)
         assert isinstance(s, sort.NullSort)
-        assert len(q.subqueries) == 2
+        assert len(q.subqueries) == 4
 
     def test_no_space_before_comma_or_query(self):
         q, s = self.psq("foo, bar")
         assert isinstance(q, query.OrQuery)
         assert isinstance(s, sort.NullSort)
-        assert len(q.subqueries) == 2
+        assert len(q.subqueries) == 4
 
     def test_no_spaces_or_query(self):
         q, s = self.psq("foo,bar")
@@ -718,13 +716,13 @@ class ParseSortedQueryTest(unittest.TestCase):
         q, s = self.psq("foo , bar ,")
         assert isinstance(q, query.OrQuery)
         assert isinstance(s, sort.NullSort)
-        assert len(q.subqueries) == 3
+        assert len(q.subqueries) == 5
 
     def test_leading_comma_or_query(self):
         q, s = self.psq(", foo , bar")
         assert isinstance(q, query.OrQuery)
         assert isinstance(s, sort.NullSort)
-        assert len(q.subqueries) == 3
+        assert len(q.subqueries) == 5
 
     def test_only_direction(self):
         q, s = self.psq("-")
