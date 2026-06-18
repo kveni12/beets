@@ -211,3 +211,5 @@ c9ad80dad2528af67cdb76c35d7ba5e4824b7600
 c070b29e14cd06419e129b76a6d42a82fe51e190
 # Add missing types to importer
 e4baceae1fa03dfd6db9e0bab88ddd2812963ad3
+# Move AttrDict under beets.util
+f0cb7ed2e29800657bb2d32f4efeddf98217ba7a
