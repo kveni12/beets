@@ -102,7 +102,8 @@ Bug fixes
   configured browser :bug:`6710`
 - :doc:`plugins/lyrics`: Leave lyrics empty when a source reports an
   instrumental track, and store that state in ``lyrics_instrumental`` flexible
-  attribute. :bug:`6719`
+  attribute. Existing ``[Instrumental]`` lyrics are migrated automatically.
+  :bug:`6719`
 
 For plugin developers
 ~~~~~~~~~~~~~~~~~~~~~
