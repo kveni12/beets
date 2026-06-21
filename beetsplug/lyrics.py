@@ -1006,6 +1006,7 @@ BACKEND_BY_NAME = {
 class LyricsPlugin(LyricsRequestHandler, plugins.BeetsPlugin):
     item_types: ClassVar[dict[str, types.Type]] = {
         "lyrics_url": types.STRING,
+        "lyrics_instrumental": types.BOOLEAN,
         "lyrics_backend": types.STRING,
         "lyrics_language": types.STRING,
         "lyrics_translation_language": types.STRING,
@@ -1178,9 +1179,15 @@ class LyricsPlugin(LyricsRequestHandler, plugins.BeetsPlugin):
                 )
                 return
 
-            for key in ("backend", "url", "language", "translation_language"):
+            for key in (
+                "backend",
+                "url",
+                "instrumental",
+                "language",
+                "translation_language",
+            ):
                 item_key = f"lyrics_{key}"
-                if value := getattr(new_lyrics, key):
+                if (value := getattr(new_lyrics, key)) is not None:
                     item[item_key] = value
                 elif item_key in item:
                     del item[item_key]

@@ -100,6 +100,9 @@ Bug fixes
   queries.
 - :doc:`plugins/tidal`: Fix auth URL not printed in environments without a
   configured browser :bug:`6710`
+- :doc:`plugins/lyrics`: Leave lyrics empty when a source reports an
+  instrumental track, and store that state in ``lyrics_instrumental`` flexible
+  attribute. :bug:`6719`
 
 For plugin developers
 ~~~~~~~~~~~~~~~~~~~~~
