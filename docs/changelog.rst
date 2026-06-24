@@ -15,6 +15,8 @@ New features
 - :doc:`plugins/lyrics`: Added a ``rest_directory`` configuration option for
   specifying a reStructuredText output directory, semantically equivalent to
   ``-r, --write-rest``. :bug:`2806`
+- :doc:`plugins/lyrics`: Added a ``--no-keep-synced`` command option to
+  override ``keep_synced: yes`` for a single manual lyrics fetch.
 
 ..
     Bug fixes
